@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "../Work Space/Micropost"
+		},
+		{
+			"path": "../Work Space/JS-SANDBOX"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../Work Space/Master the Coding Interview Data Structures + Algorithms/excercise file"
+		},
+		{
+			"path": "../Codility"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Codility"
+	}
+}
