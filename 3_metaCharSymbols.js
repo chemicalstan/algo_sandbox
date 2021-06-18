@@ -5,9 +5,9 @@ re = /hello/i;  // case insensitivity
 
 // Metacharacter symbols  
 
-re = /^h/i;  // Must start with h
+re = /^h/i;  // Must start with h - case insensitive
 re = /world$/i;  // Must end with world
-re = /h.llo/i; // Can have only one random character to replace d fullstop
+re = /h.llo/i; // Can have only one random character to replace the fullstop
 re = /^h*llo/i;  // zero or more any char to replace the asterics and anything before
 re = /gra?e?y/i;  // a and e are optional 
 re = /gra?e?y\?/i;  // Escapes the question mark

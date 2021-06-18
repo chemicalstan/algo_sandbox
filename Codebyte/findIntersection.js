@@ -1,4 +1,4 @@
-// function FindIntersection(strArr) { 
+// function FindIntersection(strArr) {
 //     // return strArr.length
 //     if(strArr.length<2){
 //       return false;
@@ -7,7 +7,7 @@
 //     let split1 = str1.split(",");
 //     let map1 = {};
 //     let result = [];
-    
+
 //     for(let i=0; i<split1.length; i++){
 //         map1[JSON.parse(split1[i])] = true;
 //     }
@@ -28,35 +28,48 @@
 //     }else{
 //       return false;
 //     }
-  
+
 //   }
-  
-  input = ["4, 5", "1, 2, 4, 13, 15"];
-  // keep this function call here 
+
+input = ["4, 5, 15, 4", "1, 2, 4, 13, 1, 1, 15, 15"];
+// keep this function call here
 //   console.log(FindIntersection(input));
 
-  function FindIntersection(input) { 
-  
-    const [firstList, secondList] = input.map( s => s.split(", ") );
-    
-    const resultMap = {};
-    const result = [];
-    
-    // for ( const number of firstList ) {
-    //   resultMap[ number ] = true;
-    // }
-    firstList.forEach(num=>{
-        resultMap[num] = true;
-    })
+// function FindIntersection(input) {
 
-    for ( const number of secondList ) {
-      if ( resultMap[number] ) {
-        result.push( number );
-      }
-    }
-    
-    return result.length ? result.join(",") : false;  
-  }
-     
-  // keep this function call here 
-  console.log(FindIntersection(input));
+//   const [firstList, secondList] = input.map( s => s.split(", ") );
+
+//   const resultMap = {};
+//   const result = [];
+
+//   // for ( const number of firstList ) {
+//   //   resultMap[ number ] = true;
+//   // }
+//   firstList.forEach(num=>{
+//       resultMap[num] = true;
+//   })
+
+//   for ( const number of secondList ) {
+//     if ( resultMap[number] ) {
+//       result.push( number );
+//     }
+//   }
+
+//   return result.length ? result.join(",") : false;
+// }
+
+// // keep this function call here
+// console.log(FindIntersection(input));
+
+const FindIntersection = input => {
+  let [first, second] = input.map(s => s.split(", "));
+  first = new Set(first);
+  second = new Set(second);
+  first = [...first]
+  second = [...second]
+  const incommon = first.filter(value => {
+    return second.includes(value);
+  });
+  return incommon.join(', ');
+};
+console.log(FindIntersection(input));

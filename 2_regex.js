@@ -5,9 +5,10 @@
 // 1. i // This is used to make a regular expression case insensitive. This is used after the closing slash
 // 2. g // This is a global search flag used to search throughout the prgrph for every instance of the regex
 let re;
-re = /hello/;
+// re = /hello/;
 re = /hello/i;
-// re = /hello/g;s
+// re = /hello/g;
+// re = /a|e|i|o|u/g;
 
 // console.log(re);
 // Some Regular Expression Methods and Properties
@@ -15,7 +16,7 @@ re = /hello/i;
     // .source - This omits the slashes and returns the content only
 // console.log(re.source);
     
-    // exec() - This returns an array with the index at which the regex's 
+    // exec() - This returns an array with the index at which the regex is 
     // source matches or null when the source is not found within the input
 // const result = re.exec('Okay, hello mister Stanley');
 // console.log(result); // This returns the array
@@ -28,9 +29,9 @@ re = /hello/i;
 // console.log(result)
 
     // match() - This does thesame thing as exec but just inside out
-// const str = 'hello fams';
-// const result = str.match(re);
-// console.log(result)
+const str = 'hello fams hello';
+const result = str.match(re);
+console.log(result)
 
     // search() - This returns the index of the regex in a string and returns
     // -1 when not found
@@ -39,7 +40,7 @@ re = /hello/i;
 // console.log(result)
 
     // replace() - This replaces the regex with a new string
-const str = 'Hello world';
-const newStr = 'hi';
-result = str.replace(re, newStr);
-console.log(result)
+// const str = 'Hello world';
+// const newStr = 'hi';
+// result = str.replace(re, newStr);
+// console.log(result)
