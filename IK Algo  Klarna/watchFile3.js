@@ -1,32 +1,11 @@
+const { performance } = require("perf_hooks");
 function findRoutes(routes) {
-  // If input is string
-  // if (typeof routes === "string") {
-  //   let strArr = routes.split(", ");
-  //   if (strArr.length === 1) {
-  //     strArr = strArr[0].split(" ");
-  //   }
-  //   let strSet = new Set(strArr);
-  //   strArr = [...strSet];
-  //   return strArr.join(", ");
-  // }
-  let flat = routes.reduce((acc, val) => acc.concat(val), []);
-  // If array contains only one string
-  // if (flat.length === 1) {
-  //   flat = flat[0].split(", ");
-  //   // Check if array wasn't splitted
-  //   if (flat.length === 1) {
-  //     flat = flat[0].split(" ");
-  //   }
-  //   // filter duplicates
-  //   let flatSet = new Set(flat);
-  //   // convert back to array and return as string
-  //   return [...flatSet].join(", ");
-  // }
-  let map = {};
-  let result = [];
-  let lastSeen = {};
-  let app = {};
-  let search = "";
+  let flat = routes.reduce((acc, val) => acc.concat(val), []),
+    map = {},
+    result = [],
+    lastSeen = {},
+    app = {},
+    search = "";
   flat.forEach((route, index) => {
     map[index] = route;
     lastSeen[route] = index;
@@ -36,7 +15,6 @@ function findRoutes(routes) {
       app[route] = 1;
     }
   });
-  // return {map, app, lastSeen}
   for (let place in app) {
     if (app[place] == 1 && !(lastSeen[place] % 2)) {
       result.push(place);
@@ -68,20 +46,49 @@ function findRoutes(routes) {
   }
   return result.join(", ");
 }
-// console.log({ one: findRoutes("MNL, TAG, CEB, TAC, TAG, CEB, TAC, BOR") }); //done
-console.log({
-  two: findRoutes([
-    ["UAE", "NGR"],
-    ["JPN", "PHL"],
-    ["BRA", "FRA"],
-    ["PHL", "BRA"],
-    ["FRA", "ENG"],
-    ["NGR", "JPN"]
-  ])
-}); // done
+
+function findRoute(routes) {
+  if (routes.length > 1) {
+    var currentstop = currentLocation(routes);
+    let remainingRoutes = routes.filter(route => {
+      return !(route[0] == currentstop);
+    });
+    return currentstop + ", " + findRoutes(remainingRoutes);
+  } else {
+    return routes[0][0] + ", " + routes[0][1];
+  }
+}
+
+function currentLocation(routes) {
+  let stops = routes.map(route => {
+    return route[1];
+  });
+  return routes.filter(route => {
+    return !stops.includes(route[0]);
+  })[0][0];
+}
+
+function findRout(routes) {
+  var r1 = routes.map(x => x[0]),
+    r2 = routes.map(x => x[1]),
+    r = {},
+    start = r1.filter(x => !r2.includes(x))[0],
+    rs = [start];
+  routes.forEach(x => (r[x[0]] = x[1]));
+  while (rs.length <= routes.length) rs.push((start = r[start]));
+  return rs.join(", ");
+}
 // console.log({
-// three: findRoutes(["USA, BRA, UAE, JPN, PHL, BRA, FRA, PHL, USA"])
+//   two: findRoutes([
+//     ["UAE", "NGR"],
+//     ["JPN", "PHL"],
+//     ["BRA", "FRA"],
+//     ["PHL", "BRA"],
+//     ["FRA", "ENG"],
+//     ["NGR", "JPN"]
+//   ])
 // }); // done
+let t0 = performance.now();
 console.log({
   four: findRoutes([
     ["Chicago", "Winnipeg"],
@@ -91,14 +98,32 @@ console.log({
     ["Winnipeg", "Seattle"]
   ])
 }); // done
-// console.log({ four: findRoutes("MNL TAG CEB TAC BOR MNL CEB NGR") });  // done
-// console.log({ five: findRoutes(["MNL TAG CEB TAC BOR MNL CEB NGR"]) });  // done
-// console.log({ six: findRoutes('Halifax, Montreal, Toronto, Chicago, Winnipeg, Seattle') });  // done
-// console.log(findRoutes('MNL, TAG, CEB, TAC, TAG, CEB, TAC, BOR'));   // probably done
-
-// findRoutes(["USA, BRA, UAE, JPN, PHL, BRA, PHL, USA"]);
-
-// findRoutes([["USA", "BRA"], ["JPN", "PHL"], ["BRA", "UAE"], ["UAE", "JPN"]]);
+let t1 = performance.now();
+console.log("Call to findroutes took " + (t1 - t0) + " milliseconds.");
+let a0 = performance.now();
+console.log({
+  four: findRoute([
+    ["Chicago", "Winnipeg"],
+    ["Halifax", "Montreal"],
+    ["Montreal", "Toronto"],
+    ["Toronto", "Chicago"],
+    ["Winnipeg", "Seattle"]
+  ])
+}); // done
+let a1 = performance.now();
+console.log("Call to findroute took " + (a1 - a0) + " milliseconds.");
+let w0 = performance.now();
+console.log({
+  four: findRout([
+    ["Chicago", "Winnipeg"],
+    ["Halifax", "Montreal"],
+    ["Montreal", "Toronto"],
+    ["Toronto", "Chicago"],
+    ["Winnipeg", "Seattle"]
+  ])
+}); // done
+let w1 = performance.now();
+console.log("Call to findroute took " + (w1 - w0) + " milliseconds.");
 
 // function findRoutes(routes) {
 //   let search = "";
